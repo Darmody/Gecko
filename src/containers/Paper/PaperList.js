@@ -5,7 +5,6 @@ export default class PaperList extends Component {
   render() {
     return (
       <div>
-        Hello, paper
       </div>
     );
   }
