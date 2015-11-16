@@ -14,6 +14,8 @@ import {reduxReactRouter, ReduxRouter} from 'redux-router';
 import getRoutes from './routes';
 import makeRouteHooksSafe from './helpers/makeRouteHooksSafe';
 
+import 'antd/lib/index.css';
+
 const client = new ApiClient();
 
 const dest = document.getElementById('content');
