@@ -1,0 +1,14 @@
+.panel {
+  border: 1px solid #E9E9E9;
+  border-radius: 6px;
+  display: inline-block;
+  width: 100%;
+  position: relative;
+  margin: 0px 15px 15px 0px;
+  transition: all 0.5s ease;
+  padding: 20px;
+
+  &:hover {
+      border-color: #ccc;
+  }
+}
