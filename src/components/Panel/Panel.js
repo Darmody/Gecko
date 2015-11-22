@@ -3,14 +3,17 @@ import styles from './Panel.scss';
 
 export default class Panel extends Component {
   static propTypes = {
-    children: PropTypes.element,
+    onClick: PropTypes.func,
+    children: PropTypes.oneOfType([
+      React.PropTypes.array, React.PropTypes.element,
+    ])
   }
 
   render() {
-    const { children } = this.props;
+    const { onClick, children } = this.props;
 
     return (
-      <div className={styles.panel}>
+      <div className={styles.panel} onClick={onClick}>
         {children}
       </div>
     );

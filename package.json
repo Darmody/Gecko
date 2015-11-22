@@ -72,7 +72,7 @@
     }
   },
   "dependencies": {
-    "antd": "^0.10.0-beta25",
+    "antd": "^0.10.1",
     "babel": "~5.8.29",
     "babel-plugin-typecheck": "^2.0.0",
     "body-parser": "^1.14.1",

@@ -1,28 +1,37 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Menu from 'antd/lib/menu';
 import styles from './PaperNav.scss';
+import PaperAdd from './PaperAdd';
 
-export default class PaperNav extends Component {
+export default ({ papers, handleCreate, handleSelect }) => {
 
-  render() {
-    const papers = ['Gecko', 'Prime-server', 'Prime-shell-react'];
+  function handleClick(item) {
+    if (item.key === '__create') return;
+    handleSelect(item.key);
+  }
 
-    return (
+  return (
+    <div>
       <Menu
-        style={{width: '100%'}}
         className={styles.paperNav}
         mode="inline"
+        onClick={handleClick}
       >
         {
-          papers.map((paper) => (
+          papers.map((paper, index) => (
             <Menu.Item
-              key={paper}
+              key={index}
             >
-              <span>{paper}</span>
+              <span>{paper.title}</span>
             </Menu.Item>
           ))
         }
+        <Menu.Item
+          key="__create"
+        >
+          <PaperAdd handleCreate={handleCreate} />
+        </Menu.Item>
       </Menu>
-    );
-  }
-}
+    </div>
+  );
+};
