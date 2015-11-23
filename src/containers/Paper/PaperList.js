@@ -1,10 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Row, Col } from 'antd/lib/layout';
 import { fetch, create, select } from 'redux/modules/paper';
 import { create as createCard, fetch as fetchCard } from 'redux/modules/card';
-import styles from './PaperList.scss';
 import PaperNav from './PaperNav/PaperNav';
 import CardList from '../Card/CardList';
 
@@ -43,9 +41,9 @@ export default class PaperList extends Component {
     this.props.create(data);
   }
 
-  handleCreateCard() {
+  handleCreateCard(data) {
     const index = this.props.paper.currentPaperIndex;
-    this.props.createCard(index, {title: 'card'});
+    this.props.createCard(index, data);
   }
 
   render() {
@@ -55,22 +53,20 @@ export default class PaperList extends Component {
     const cards = card[paperIndex] || [];
 
     return (
-      <div className={styles.paper}>
-        <Row type="flex" justify="space-around">
-          <Col span="8" >
-            <PaperNav
-              papers={papers}
-              handleCreate={::this.handleCreate}
-              handleSelect={::this.handleSelect}
-            />
-          </Col>
-          <Col span="16">
+      <div className="row">
+        <div className="col-xs-4">
+          <PaperNav
+            papers={papers}
+            handleCreate={::this.handleCreate}
+            handleSelect={::this.handleSelect}
+          />
+        </div>
+        <div className="col-xs-8">
           <CardList
             cards={cards}
-            create={::this.handleCreateCard}
+            handleCreate={::this.handleCreateCard}
           />
-          </Col>
-        </Row>
+        </div>
       </div>
     );
   }

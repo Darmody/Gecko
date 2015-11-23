@@ -1,37 +1,28 @@
 import React from 'react';
-import Menu from 'antd/lib/menu';
-import styles from './PaperNav.scss';
+import LeftNav from 'material-ui/lib/left-nav';
+import MenuItem from 'material-ui/lib/menus/menu-item';
 import PaperAdd from './PaperAdd';
 
 export default ({ papers, handleCreate, handleSelect }) => {
 
-  function handleClick(item) {
-    if (item.key === '__create') return;
-    handleSelect(item.key);
+  function handleChange(_event, index) {
+    handleSelect(index);
   }
 
   return (
-    <div>
-      <Menu
-        className={styles.paperNav}
-        mode="inline"
-        onClick={handleClick}
-      >
-        {
-          papers.map((paper, index) => (
-            <Menu.Item
-              key={index}
-            >
-              <span>{paper.title}</span>
-            </Menu.Item>
-          ))
-        }
-        <Menu.Item
-          key="__create"
-        >
-          <PaperAdd handleCreate={handleCreate} />
-        </Menu.Item>
-      </Menu>
-    </div>
+    <LeftNav
+      onChange={handleChange}
+    >
+      {
+        papers.map((paper, index) => (
+          <div key={index}>
+            <MenuItem primaryText={paper.title} />
+          </div>
+        ))
+      }
+      <MenuItem>
+        <PaperAdd handleCreate={handleCreate} />
+      </MenuItem>
+    </LeftNav>
   );
 };

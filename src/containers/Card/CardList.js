@@ -1,44 +1,37 @@
 import React from 'react';
-import { Row, Col } from 'antd/lib/layout';
-import { Panel } from 'components';
+import Card from 'material-ui/lib/card/card';
+import CardText from 'material-ui/lib/card/card-text';
+import CardAdd from './CardAdd';
 
-export default ({ cards, create }) => {
+export default ({ cards, handleCreate }) => {
 
   return (
-    <Row type="flex">
-      <Col span="24">
-        <Panel>
-          {
-            cards.length === 0 && (
-              <div>
-                Nothing yet!
-              </div>
-            )
-          }
-          {
-            cards.map((card, index) => (
-              <Row type="flex" justify="center" key={index}>
-                  <Col span="24">
-                  <Panel>
-                    <div>
-                      {card.title}
-                    </div>
-                  </Panel>
-                  </Col>
-              </Row>
-            ))
-          }
-          <Row type="flex" justify="center" key="__createCard">
-              <Col span="24">
-              <Panel onClick={create}>
-                <div>
-                  +
-                </div>
-              </Panel>
-              </Col>
-          </Row>
-        </Panel>
-      </Col>
-    </Row>
+    <div className="row">
+      <div className="col-xs-12">
+        {
+          cards.length === 0 && (
+            <div>
+              Nothing yet!
+            </div>
+          )
+        }
+        {
+          cards.map((card, index) => (
+            <Card key={index}>
+              <CardText>
+                {card.title}
+              </CardText>
+            </Card>
+          ))
+        }
+        <Card>
+          <CardText>
+            <CardAdd
+              handleCreate={handleCreate}
+            />
+          </CardText>
+        </Card>
+      </div>
+    </div>
   );
 };

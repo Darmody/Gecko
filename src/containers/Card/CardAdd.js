@@ -3,10 +3,10 @@ import { reduxForm } from 'redux-form';
 import TextField from 'material-ui/lib/text-field';
 
 @reduxForm({
-  form: 'paperAdd',
+  form: 'cardAdd',
   fields: [ 'title' ],
 })
-export default class PaperAdd extends Component {
+export default class cardAdd extends Component {
   static propTypes = {
     fields: PropTypes.object.isRequired,
     handleCreate: PropTypes.func.isRequired,
@@ -25,7 +25,7 @@ export default class PaperAdd extends Component {
 
     return (
       <TextField
-        hintText="New Paper"
+        hintText="New Card"
         {...fields.title}
         onKeyDown={::this.handleKeyDown}
       />
