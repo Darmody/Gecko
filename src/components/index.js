@@ -5,4 +5,4 @@
  *
  */
 
-export Panel from './Panel/Panel';
+export InlineInput from './InlineInput/InlineInput';

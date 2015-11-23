@@ -5,6 +5,10 @@ import CardAdd from './CardAdd';
 
 export default ({ cards, handleCreate }) => {
 
+  const prepareHandleCreate = (title) => {
+    handleCreate({title: title});
+  };
+
   return (
     <div className="row">
       <div className="col-xs-12">
@@ -27,7 +31,7 @@ export default ({ cards, handleCreate }) => {
         <Card>
           <CardText>
             <CardAdd
-              handleCreate={handleCreate}
+              handleCreate={prepareHandleCreate}
             />
           </CardText>
         </Card>
