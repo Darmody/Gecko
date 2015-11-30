@@ -63,6 +63,12 @@ app.use((req, res) => {
 
   const store = createStore(reduxReactRouter, getRoutes, createHistory, client);
 
+  const {headers} = req;
+
+  global.navigator = {
+    userAgent: headers['user-agent']
+  };
+
   function hydrateOnClient() {
     res.send('<!doctype html>\n' +
       ReactDOM.renderToString(<Html assets={webpackIsomorphicTools.assets()} store={store}/>));
