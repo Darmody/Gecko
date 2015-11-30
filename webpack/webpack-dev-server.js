@@ -1,5 +1,6 @@
 var Express = require('express');
 var webpack = require('webpack');
+var historyApiFallback = require("connect-history-api-fallback");
 
 var config = require('../src/config');
 var webpackConfig = require('./dev.config');
@@ -21,6 +22,7 @@ var serverOptions = {
 
 var app = new Express();
 
+app.use(historyApiFallback());
 app.use(require('webpack-dev-middleware')(compiler, serverOptions));
 app.use(require('webpack-hot-middleware')(compiler));
 

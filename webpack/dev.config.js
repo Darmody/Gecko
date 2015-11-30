@@ -4,6 +4,7 @@ require('babel/polyfill');
 var fs = require('fs');
 var path = require('path');
 var webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin')
 var WebpackIsomorphicTools = require('webpack-isomorphic-tools');
 var assetsPath = path.resolve(__dirname, '../static/dist');
 var host = (process.env.HOST || 'localhost');
@@ -59,7 +60,7 @@ module.exports = {
     path: assetsPath,
     filename: '[name]-[hash].js',
     chunkFilename: '[name]-[chunkhash].js',
-    publicPath: 'http://' + host + ':' + port + '/dist/'
+    publicPath: 'http://' + host + ':' + port + '/'
   },
   module: {
     loaders: [
@@ -84,6 +85,10 @@ module.exports = {
     extensions: ['', '.json', '.js']
   },
   plugins: [
+    new HtmlWebpackPlugin({
+      inject: true,
+      template: './src/index.html'
+    }),
     // hot reload
     new webpack.HotModuleReplacementPlugin(),
     new webpack.IgnorePlugin(/webpack-stats\.json$/),
