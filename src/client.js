@@ -14,6 +14,7 @@ import {reduxReactRouter, ReduxRouter} from 'redux-router';
 import getRoutes from './routes';
 import makeRouteHooksSafe from './helpers/makeRouteHooksSafe';
 
+require('react-tap-event-plugin')();
 require('../node_modules/flexboxgrid/dist/flexboxgrid.min.css');
 
 const client = new ApiClient();

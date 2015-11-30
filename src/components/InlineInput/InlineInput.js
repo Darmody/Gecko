@@ -67,7 +67,7 @@ export default class InlineInput extends Component {
   render() {
     return (
       <HotKeys {...this.state} >
-        <TextField {...this.state} onChange={::this.handleChange} />
+        <TextField autoFocus {...this.state} onChange={::this.handleChange} />
       </HotKeys>
     );
   }

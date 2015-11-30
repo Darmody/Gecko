@@ -8,7 +8,7 @@ export const SELECT = 'Gecko/paper/SELECT';
 export const CREATE_CARD = 'Gecko/card/CREATE';
 
 const initialState = new Map({
-  list: List.of(new Paper({ title: 'Gecko'})),
+  list: List.of(new Paper({ title: 'Gecko'}), new Paper({ title: 'Jarvis' })),
   currentPaperIndex: '0',
 });
 

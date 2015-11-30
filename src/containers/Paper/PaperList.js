@@ -41,6 +41,10 @@ export default class PaperList extends Component {
     this.props.create(data);
   }
 
+  handleCreate(data) {
+    this.props.create(data);
+  }
+
   handleCreateCard(data) {
     const index = this.props.paper.currentPaperIndex;
     this.props.createCard(index, data);
@@ -48,14 +52,16 @@ export default class PaperList extends Component {
 
   render() {
     const { paper, card } = this.props;
-    const paperIndex = paper.currentPaperIndex;
+
+    const currentPaperIndex = paper.currentPaperIndex;
     const papers = paper.list;
-    const cards = card[paperIndex] || [];
+    const cards = card[currentPaperIndex] || [];
 
     return (
       <div className="row">
         <div className="col-xs-4">
           <PaperNav
+            currentPaperIndex={Number(currentPaperIndex)}
             papers={papers}
             handleCreate={::this.handleCreate}
             handleSelect={::this.handleSelect}

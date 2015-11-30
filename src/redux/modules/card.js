@@ -21,7 +21,7 @@ const reducer = (originalState, action = {}) => {
     case FETCH:
       return state;
     case CREATE:
-      return state.updateIn([action.currentPaperIndex], list => {
+      return state.updateIn([action.currentPaperIndex.toString()], list => {
         if (list) return list.push(action.newRecord);
         return List.of(action.newRecord);
       });
