@@ -5,13 +5,9 @@ export default function createStore(data) {
   const middleware = [createLogger()];
 
   let finalCreateStore;
-  if (__DEVELOPMENT__ && __DEVTOOLS__) {
-    const { persistState } = require('redux-devtools');
-    const DevTools = require('../containers/DevTools/DevTools');
+  if (__DEVELOPMENT__) {
     finalCreateStore = compose(
       applyMiddleware(...middleware),
-      DevTools.instrument(),
-      persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/))
     )(_createStore);
   } else {
     finalCreateStore = applyMiddleware(...middleware)(_createStore);
