@@ -1,17 +1,14 @@
 import React from 'react';
-import {Route} from 'react-router';
+import { Route, IndexRoute } from 'react-router';
 import {
     App,
     PaperList,
   } from 'containers';
 
-export default (history) => {
-  /**
-   * Please keep routes in alphabetical order
-   */
-  return (
-    <Route path="/" component={App} history={history}>
-      <Route path="papers" component={PaperList} />
-    </Route>
-  );
-};
+export default (
+  <Route path="/" component={App} >
+    { /* Routes */ }
+    <IndexRoute component={PaperList} />
+    <Route path="papers" component={PaperList} />
+  </Route>
+);

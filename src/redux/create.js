@@ -2,15 +2,13 @@ import { createStore as _createStore, applyMiddleware, compose } from 'redux';
 import createLogger from 'redux-logger';
 
 export default function createStore(data) {
-  const middleware = [createLogger()];
-
   let finalCreateStore;
   if (__DEVELOPMENT__) {
     finalCreateStore = compose(
-      applyMiddleware(...middleware),
+      applyMiddleware(createLogger()),
     )(_createStore);
   } else {
-    finalCreateStore = applyMiddleware(...middleware)(_createStore);
+    finalCreateStore = applyMiddleware(createLogger())(_createStore);
   }
 
   const reducer = require('./modules/reducer');
