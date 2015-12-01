@@ -5,14 +5,13 @@ import {
     PaperList,
   } from 'containers';
 
-export default () => {
+export default (history) => {
   /**
    * Please keep routes in alphabetical order
    */
   return (
-    <Route path="/" component={App}>
-      { /* Routes */ }
-      <Route path="papers" component={PaperList}/>
+    <Route path="/" component={App} history={history}>
+      <Route path="papers" component={PaperList} />
     </Route>
   );
 };
