@@ -49,7 +49,7 @@ module.exports = {
   entry: {
     'main': [
       'webpack-hot-middleware/client?path=http://' + host + ':' + port + '/__webpack_hmr',
-      './src/client.js'
+      './src/index.js'
     ]
   },
   output: {
@@ -90,6 +90,9 @@ module.exports = {
     new webpack.DefinePlugin({
       __CLIENT__: true,
       __DEVELOPMENT__: true,
+      'process.env': {
+        'NODE_ENV': JSON.stringify('development')
+      }
     }),
     new ExtractTextPlugin("styles.css")
   ]

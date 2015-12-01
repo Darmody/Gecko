@@ -8,23 +8,24 @@ var strip = require('strip-loader');
 
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var webpackTargetElectronRenderer = require('webpack-target-electron-renderer');
 
 var relativeAssetsPath = '../static/dist';
 var assetsPath = path.join(__dirname, relativeAssetsPath);
 
-module.exports = {
+var config = {
   devtool: 'source-map',
   context: path.resolve(__dirname, '..'),
   entry: {
     'main': [
-      './src/client.js'
+      './src/index.js'
     ]
   },
   output: {
     path: assetsPath,
     filename: '[name]-[chunkhash].js',
     chunkFilename: '[name]-[chunkhash].js',
-    publicPath: '/dist/'
+    publicPath: ''
   },
   module: {
     loaders: [
@@ -84,3 +85,7 @@ module.exports = {
     }),
   ]
 };
+
+config.target = webpackTargetElectronRenderer(config);
+
+module.exports = config;
