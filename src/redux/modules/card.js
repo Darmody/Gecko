@@ -4,7 +4,13 @@ import Card from '../records/card';
 export const CREATE = 'Gecko/card/CREATE';
 export const FETCH = 'Gecko/card/FETCH';
 
-const initialState = new Map({});
+const initialState = new Map({
+  '0': List.of(
+    new Card({title: 'Complete basic functions.'}),
+    new Card({title: 'Integrate Electron.'}),
+    new Card({title: 'Paint beautiful UI.'}),
+  )
+});
 
 const revive = (state) => {
   if (state instanceof Map) {

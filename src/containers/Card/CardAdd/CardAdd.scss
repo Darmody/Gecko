@@ -1,0 +1,19 @@
+.addCard {
+  background-color: #5477FF;
+  width: 100%;
+}
+
+.addCardTitle {
+  color: #fff;
+  padding: 20px;
+}
+
+.addCardInput {
+  border: none;
+  border-radius: 2px;
+  height: 50px;
+  margin: 10px;
+  outline: none;
+  padding-left: 20px;
+  width: calc(100% - 40px);
+}

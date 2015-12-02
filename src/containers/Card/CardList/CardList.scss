@@ -1,0 +1,30 @@
+.card {
+  height: 70px;
+  margin: 10px;
+}
+
+.card:hover {
+  @extend .card;
+
+  background-color: #5477FF !important;
+  font: white;
+
+  .cardText {
+    color: #fff !important;
+    padding: 28px 14px !important;
+  }
+}
+
+.cardText {
+  padding: 28px 14px !important;
+}
+
+.addCard {
+  background-color: #5477FF;
+  height: 70px;
+  left: 0;
+  opacity: 0.85;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}

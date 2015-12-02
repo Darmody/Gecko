@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetch, create, select } from 'redux/modules/paper';
 import { create as createCard, fetch as fetchCard } from 'redux/modules/card';
-import PaperNav from './PaperNav/PaperNav';
 import CardList from '../Card/CardList/CardList';
 
 @connect(
@@ -54,19 +53,10 @@ export default class PaperList extends Component {
     const { paper, card } = this.props;
 
     const currentPaperIndex = paper.currentPaperIndex;
-    const papers = paper.list;
     const cards = card[currentPaperIndex] || [];
 
     return (
       <div className="row">
-        <div className="col-xs-2">
-          <PaperNav
-            currentPaperIndex={Number(currentPaperIndex)}
-            papers={papers}
-            handleCreate={::this.handleCreate}
-            handleSelect={::this.handleSelect}
-          />
-        </div>
         <div className="col-xs-10">
           <CardList
             cards={cards}
