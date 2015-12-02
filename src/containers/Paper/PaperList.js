@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { fetch, create, select } from 'redux/modules/paper';
 import { create as createCard, fetch as fetchCard } from 'redux/modules/card';
 import PaperNav from './PaperNav/PaperNav';
-import CardList from '../Card/CardList';
+import CardList from '../Card/CardList/CardList';
 
 @connect(
   (state) => ({
@@ -59,7 +59,7 @@ export default class PaperList extends Component {
 
     return (
       <div className="row">
-        <div className="col-xs-4">
+        <div className="col-xs-2">
           <PaperNav
             currentPaperIndex={Number(currentPaperIndex)}
             papers={papers}
@@ -67,7 +67,7 @@ export default class PaperList extends Component {
             handleSelect={::this.handleSelect}
           />
         </div>
-        <div className="col-xs-8">
+        <div className="col-xs-10">
           <CardList
             cards={cards}
             handleCreate={::this.handleCreateCard}
