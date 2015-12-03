@@ -7,7 +7,7 @@ export default class InlineInput extends Component {
     value: PropTypes.string,
     placeholder: PropTypes.string,
     editable: PropTypes.bool,
-    className: PropTypes.object,
+    className: PropTypes.string,
   }
 
   constructor(props) {

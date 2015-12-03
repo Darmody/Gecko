@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import Paper from 'material-ui/lib/paper';
 import { InlineInput } from 'components';
 import styles from './CardAdd.scss';
 
@@ -12,7 +13,7 @@ export default class CardAdd extends Component {
 
     return (
       <div clasName="row">
-        <div className="col-sx-12">
+        <Paper className="col-sx-12">
           <div className={styles.addCard} >
             <div className={styles.addCardTitle}>
               New Card
@@ -23,7 +24,7 @@ export default class CardAdd extends Component {
               className={styles.addCardInput}
             />
           </div>
-        </div>
+        </Paper>
       </div>
     );
   }
