@@ -8,8 +8,9 @@ import routes from './routes';
 import createStore from './redux/create';
 const store = createStore();
 
-require('react-tap-event-plugin')();
+require('../static/Roboto.css');
 require('../node_modules/flexboxgrid/dist/flexboxgrid.min.css');
+require('react-tap-event-plugin')();
 
 ReactDOM.render(
   <Provider store={store}>

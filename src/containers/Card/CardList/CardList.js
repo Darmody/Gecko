@@ -3,6 +3,7 @@ import CardText from 'material-ui/lib/card/card-text';
 import React from 'react';
 import CardAdd from '../CardAdd/CardAdd';
 import styles from './CardList.scss';
+require('mdi/css/materialdesignicons.css');
 
 export default ({ cards, handleCreate }) => {
 
@@ -26,6 +27,9 @@ export default ({ cards, handleCreate }) => {
                 key={index}
               >
                 <CardText className={styles.cardText}>
+                  <span className={styles.titleIcon}>
+                    <i className="mdi mdi-tooltip-outline" />
+                  </span>
                   {card.title}
                 </CardText>
               </Card>

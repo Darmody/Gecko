@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import Tabs from 'material-ui/lib/tabs/tabs';
 import Tab from 'material-ui/lib/tabs/tab';
 import styles from './PaperNav.scss';
+require('mdi/css/materialdesignicons.css');
 
 export default class PaperNav extends Component {
   static propTypes = {
@@ -23,12 +24,12 @@ export default class PaperNav extends Component {
         <Tabs
           onChange={::this.handleChange}
           value={currentPaperIndex.toString()}
-          inkBarStyle={{backgroundColor: '#fff'}}
+          inkBarStyle={{backgroundColor: '#FFAB00'}}
         >
           {
             papers.map((paper, index) => {
               const label = index === currentPaperIndex ?
-                paper.title.toUpperCase() :
+                (<div> <i className="mdi mdi-star-circle" /> { paper.title.toUpperCase() } </div> ) :
                 (<h3>{paper.title[0].toUpperCase()}</h3>);
 
               return (

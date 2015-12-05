@@ -1,20 +1,25 @@
+@import "~containers/App/Constants";
+
 .card {
   height: 70px;
   margin: 10px;
-}
-
-.card:hover {
-  @extend .card;
-
-  background-color: #5477FF !important;
-  font: white;
 
   .cardText {
-    color: #fff !important;
     padding: 28px 14px !important;
-  }
-}
+    font-size: 16px !important;
+    font-weight: 400;
 
-.cardText {
-  padding: 28px 14px !important;
+    .titleIcon {
+      padding-right: 18px;
+    }
+  }
+
+  &:hover {
+    background-color: $positive-color !important;
+    font: white;
+
+    .cardText {
+      color: #fff !important;
+    }
+  }
 }

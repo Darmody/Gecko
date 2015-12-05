@@ -1,11 +1,13 @@
+@import "~containers/App/Constants";
+
 .addCard {
-  background-color: #5477FF;
+  background-color: $primary-color;
   width: 100%;
 }
 
 .addCardTitle {
-  color: #fff;
-  padding: 20px;
+  color: $positive-color;
+  padding: 20px 0px 15px 10px;
 }
 
 .addCardInput {

@@ -1,3 +1,10 @@
-.app {
+@import "Constants";
+
+html, body, #content {
   height: 100%;
+}
+
+body {
+  background-color: $negative-color;
+  margin: 0;
 }
