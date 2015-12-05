@@ -1,0 +1,21 @@
+@import "~containers/App/Constants";
+
+.addCard {
+  background-color: $primary-color;
+  width: 100%;
+}
+
+.addCardTitle {
+  color: $positive-color;
+  padding: 20px 0px 15px 10px;
+}
+
+.addCardInput {
+  border: none;
+  border-radius: 2px;
+  height: 50px;
+  margin: 10px;
+  outline: none;
+  padding-left: 20px;
+  width: calc(100% - 40px);
+}

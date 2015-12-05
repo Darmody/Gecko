@@ -1,0 +1,13 @@
+@import "~containers/App/Constants";
+
+.paperNav {
+  bottom: 0;
+  width: 100%;
+  position: fixed;
+}
+
+.paperNavTab {
+  background-color: $secondary-color;
+
+  height: 66px !important;
+}

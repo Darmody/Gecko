@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import Menu from 'material-ui/lib/menus/menu';
-import MenuItem from 'material-ui/lib/menus/menu-item';
-import MenuDivider from 'material-ui/lib/menus/menu-divider';
-import PaperAdd from '../PaperAdd';
+import Tabs from 'material-ui/lib/tabs/tabs';
+import Tab from 'material-ui/lib/tabs/tab';
+import styles from './PaperNav.scss';
+require('mdi/css/materialdesignicons.css');
 
 export default class PaperNav extends Component {
   static propTypes = {
@@ -12,32 +12,38 @@ export default class PaperNav extends Component {
     handleSelect: PropTypes.func.isRequired,
   }
 
-  handleChange(event, item) {
-    if (item.key) this.props.handleSelect(item.key);
+  handleChange(index) {
+    this.props.handleSelect(parseInt(index, 10));
   }
 
   render() {
-    const { papers, handleCreate } = this.props;
+    const { currentPaperIndex, papers, /** handleCreate **/ } = this.props;
 
     return (
-      <Menu
-        desktop
-        style={{ top: 0, left: 0, right: 'auto', width: 320 }}
-        onItemTouchTap={::this.handleChange}
-      >
-        {
-          papers.map((paper, index) => (
-            <MenuItem
-              primaryText={paper.title}
-              key={index}
-            />
-          ))
-        }
-        <MenuDivider />
-        <MenuItem>
-          <PaperAdd handleCreate={handleCreate} />
-        </MenuItem>
-      </Menu>
+      <div className={styles.paperNav}>
+        <Tabs
+          onChange={::this.handleChange}
+          value={currentPaperIndex.toString()}
+          inkBarStyle={{backgroundColor: '#FFAB00'}}
+        >
+          {
+            papers.map((paper, index) => {
+              const label = index === currentPaperIndex ?
+                (<div> <i className="mdi mdi-star-circle" /> { paper.title.toUpperCase() } </div> ) :
+                (<h3>{paper.title[0].toUpperCase()}</h3>);
+
+              return (
+                <Tab
+                key={index}
+                className={styles.paperNavTab}
+                label={label}
+                value={index.toString()}
+                />
+              );
+            })
+          }
+        </Tabs>
+      </div>
     );
   }
 }

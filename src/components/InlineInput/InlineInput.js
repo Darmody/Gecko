@@ -1,14 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import { HotKeys } from 'react-hotkeys';
-import TextField from 'material-ui/lib/text-field';
 
 export default class InlineInput extends Component {
   static propTypes = {
     handleSubmit: PropTypes.func.isRequired,
     value: PropTypes.string,
     placeholder: PropTypes.string,
-    keepEditing: PropTypes.bool,
     editable: PropTypes.bool,
+    className: PropTypes.string,
   }
 
   constructor(props) {
@@ -16,31 +15,16 @@ export default class InlineInput extends Component {
 
     this.state = {
       value: this.props.value || '',
-      hintText: this.props.placeholder || 'type here...',
-      keepEditing: this.props.keepEditing || false,
-      editable: this.props.editable || false,
+      placeholder: this.props.placeholder || 'type here...',
 
       keyMap: {
-        'edit': 'i',
         'submit': 'enter'
       },
 
       handlers: {
-        'edit': (event) => { this.makeEditable(event); },
         'submit': () => { this.submit(); }
       }
     };
-  }
-
-  makeEditable(event) {
-    event.preventDefault();
-    this.setState({editable: true});
-  }
-
-  makeImmutable() {
-    if (this.state.keepEditing) return;
-
-    this.setState({editable: false});
   }
 
   input(value) {
@@ -53,21 +37,22 @@ export default class InlineInput extends Component {
 
   submit() {
     this.props.handleSubmit(this.state.value);
-
     this.reset();
-    this.makeImmutable();
   }
 
   handleChange(event) {
-    if (!this.state.editable && !this.state.keepEditing) return;
-
     this.input(event.target.value);
   }
 
   render() {
+    const { className } = this.props;
     return (
       <HotKeys {...this.state} >
-        <TextField autoFocus {...this.state} onChange={::this.handleChange} />
+        <input
+          {...this.state}
+          className={className}
+          onChange={::this.handleChange}
+        />
       </HotKeys>
     );
   }
