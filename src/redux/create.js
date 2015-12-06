@@ -1,4 +1,5 @@
 import { createStore as _createStore, applyMiddleware, compose } from 'redux';
+import persistState from 'redux-localstorage';
 import createLogger from 'redux-logger';
 
 export default function createStore(data) {
@@ -6,9 +7,13 @@ export default function createStore(data) {
   if (__DEVELOPMENT__) {
     finalCreateStore = compose(
       applyMiddleware(createLogger()),
+      persistState(['hotkey', 'paper', 'card', ])
     )(_createStore);
   } else {
-    finalCreateStore = applyMiddleware(createLogger())(_createStore);
+    finalCreateStore = compose(
+      applyMiddleware(createLogger()),
+      persistState(['hotkey', 'paper', 'card', ])
+    )(_createStore);
   }
 
   const reducer = require('./modules/reducer');
