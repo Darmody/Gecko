@@ -1,12 +1,13 @@
 import React, { Component, PropTypes } from 'react';
+import ReactDOM from 'react-dom';
 import { HotKeys } from 'react-hotkeys';
 
 export default class InlineInput extends Component {
   static propTypes = {
     handleSubmit: PropTypes.func.isRequired,
+    focus: PropTypes.bool,
     value: PropTypes.string,
     placeholder: PropTypes.string,
-    editable: PropTypes.bool,
     className: PropTypes.string,
   }
 
@@ -25,6 +26,18 @@ export default class InlineInput extends Component {
         'submit': () => { this.submit(); }
       }
     };
+  }
+
+  componentDidMount() {
+    if (this.props.focus) {
+      ReactDOM.findDOMNode(this.refs.input).focus();
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!prevProps.focus && this.props.focus) {
+      ReactDOM.findDOMNode(this.refs.input).focus();
+    }
   }
 
   input(value) {
@@ -52,6 +65,7 @@ export default class InlineInput extends Component {
           {...this.state}
           className={className}
           onChange={::this.handleChange}
+          ref="input"
         />
       </HotKeys>
     );
