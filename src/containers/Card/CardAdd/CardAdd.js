@@ -6,11 +6,12 @@ require('mdi/css/materialdesignicons.css');
 
 export default class CardAdd extends Component {
   static propTypes = {
+    focus: PropTypes.bool,
     handleCreate: PropTypes.func.isRequired,
   }
 
   render() {
-    const { handleCreate } = this.props;
+    const { focus, handleCreate } = this.props;
 
     return (
       <div clasName="row">
@@ -20,6 +21,7 @@ export default class CardAdd extends Component {
               <i className="mdi mdi-telegram" />     New Card
             </div>
             <InlineInput
+              focus={focus}
               placeholder="Gecko is wandering..."
               handleSubmit={handleCreate}
               className={styles.addCardInput}

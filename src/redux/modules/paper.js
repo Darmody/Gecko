@@ -10,9 +10,6 @@ export const CREATE_CARD = 'Gecko/card/CREATE';
 const initialState = new Map({
   list: List.of(
     new Paper({ title: 'Gecko'}),
-    new Paper({ title: 'Tyrion'}),
-    new Paper({ title: 'Transcrapy'}),
-    new Paper({ title: 'Jarvis' })
   ),
   currentPaperIndex: '0',
 });
