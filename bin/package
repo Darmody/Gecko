@@ -1,0 +1,1 @@
+electron-packager . Gecko --platform=darwin --arch=x64 --version=0.35.4 --out=release --icon=static/gecko.icns
