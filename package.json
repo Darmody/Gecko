@@ -1,5 +1,5 @@
 {
-  "name": "Gecko",
+  "name": "geckoman",
   "description": "a gecko wandering on your screen",
   "author": "Darmody",
   "license": "MIT",
@@ -67,6 +67,7 @@
     "react-tap-event-plugin": "^0.2.1",
     "redux": "^3.0.4",
     "redux-form": "^3.0.0",
+    "redux-localstorage": "^0.4.0",
     "redux-logger": "^2.0.4",
     "redux-thunk": "^1.0.0",
     "serialize-javascript": "^1.1.2",
