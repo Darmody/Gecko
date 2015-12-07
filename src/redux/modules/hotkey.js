@@ -6,7 +6,7 @@ export const SWITCH_PANEL = 'Gecko/hotkey/SWITCH_PANEL';
 const initialState = new Map({
   'activePanel': 0,
   'keyMap': {
-    destroyCard: 'd+d',
+    destroyCard: 'd d',
     focusNewCardPanel: 'ctrl+n',
     focusCardListPanel: ['esc', 'ctrl+l'],
     forwardCardUp: 'k',
