@@ -13,6 +13,7 @@ export default class CardList extends Component {
   static propTypes = {
     focus: PropTypes.bool,
     cards: PropTypes.array.isRequired,
+    destroy: PropTypes.func.isRequired,
   }
 
   constructor(props) {
@@ -62,6 +63,7 @@ export default class CardList extends Component {
     return {
       forwardCardUp: () => (this.forwardCardUp()),
       forwardCardDown: () => (this.forwardCardDown()),
+      destroyCard: () => (this.props.destroy(this.state.currentActiveCard)),
     };
   }
 
