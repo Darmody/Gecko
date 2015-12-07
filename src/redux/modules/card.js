@@ -2,6 +2,7 @@ import { List, Map, fromJS } from 'immutable';
 import Card from '../records/card';
 
 export const CREATE = 'Gecko/card/CREATE';
+export const DESTROY = 'Gecko/card/DESTROY';
 export const FETCH = 'Gecko/card/FETCH';
 
 const initialState = new Map({
@@ -24,8 +25,14 @@ const reducer = (originalState, action = {}) => {
       return state;
     case CREATE:
       return state.updateIn([action.currentPaperIndex.toString()], list => {
-        if (list) return list.push(action.newRecord);
+        if (list) return list.unshift(action.newRecord);
         return List.of(action.newRecord);
+      });
+    case DESTROY:
+      return state.updateIn([action.currentPaperIndex.toString()], list => {
+        const cardIndex = action.currentCardIndex;
+        if (list) return list.splice(cardIndex, 1);
+        return new List;
       });
     default:
       return state;
@@ -45,5 +52,14 @@ export function create(currentPaperIndex, newRecord) {
     newRecord: new Card(newRecord),
   };
 }
+
+export function destroy(currentPaperIndex, currentCardIndex) {
+  return {
+    type: DESTROY,
+    currentPaperIndex,
+    currentCardIndex,
+  };
+}
+
 
 export default (state = initialState, action = {}) => (reducer(state, action).toJS());

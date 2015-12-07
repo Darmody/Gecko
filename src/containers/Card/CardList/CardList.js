@@ -13,6 +13,7 @@ export default class CardList extends Component {
   static propTypes = {
     focus: PropTypes.bool,
     cards: PropTypes.array.isRequired,
+    destroy: PropTypes.func.isRequired,
   }
 
   constructor(props) {
@@ -38,7 +39,6 @@ export default class CardList extends Component {
       const { currentActiveCard } = this.state;
       ReactDOM.findDOMNode(
         this.refs[`card_${currentActiveCard}`]
-      // ).scrollIntoView();
       ).scrollIntoViewIfNeeded();
     }
 
@@ -62,6 +62,7 @@ export default class CardList extends Component {
     return {
       forwardCardUp: () => (this.forwardCardUp()),
       forwardCardDown: () => (this.forwardCardDown()),
+      destroyCard: () => (this.props.destroy(this.state.currentActiveCard)),
     };
   }
 

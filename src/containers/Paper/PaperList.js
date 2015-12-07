@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetch as fetchHotkey, switchPanel } from 'redux/modules/hotkey';
 import { fetch, create, select } from 'redux/modules/paper';
-import { create as createCard, fetch as fetchCard } from 'redux/modules/card';
+import { create as createCard, fetch as fetchCard, destroy } from 'redux/modules/card';
 import CardAdd from '../Card/CardAdd/CardAdd';
 import CardList from '../Card/CardList/CardList';
 import PaperNav from './PaperNav/PaperNav';
@@ -20,6 +20,7 @@ import PaperNav from './PaperNav/PaperNav';
       {
         create,
         createCard,
+        destroy,
         fetch,
         fetchCard,
         fetchHotkey,
@@ -35,6 +36,7 @@ export default class PaperList extends Component {
     hotkey: PropTypes.object.isRequired,
     paper: PropTypes.object.isRequired,
     create: PropTypes.func.isRequired,
+    destroy: PropTypes.func.isRequired,
     fetch: PropTypes.func.isRequired,
     fetchHotkey: PropTypes.func.isRequired,
     select: PropTypes.func.isRequired,
@@ -61,6 +63,13 @@ export default class PaperList extends Component {
   handleCreateCard(title) {
     const index = this.props.paper.currentPaperIndex;
     this.props.createCard(index, { title });
+  }
+
+  handleDestroyCard(cardIndex) {
+    this.props.destroy(
+      this.props.paper.currentPaperIndex,
+      cardIndex
+    );
   }
 
   hotkeyHandlers() {
@@ -92,6 +101,7 @@ export default class PaperList extends Component {
             <CardList
               focus={hotkey.activePanel === 1}
               cards={cards}
+              destroy={::this.handleDestroyCard}
               {...this.state}
             />
           </div>
