@@ -24,7 +24,7 @@ const reducer = (originalState, action = {}) => {
       return state;
     case CREATE:
       return state.updateIn([action.currentPaperIndex.toString()], list => {
-        if (list) return list.push(action.newRecord);
+        if (list) return list.unshift(action.newRecord);
         return List.of(action.newRecord);
       });
     default:
