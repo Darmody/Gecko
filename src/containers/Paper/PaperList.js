@@ -7,6 +7,7 @@ import { fetch, create, select } from 'redux/modules/paper';
 import { create as createCard, fetch as fetchCard, destroy } from 'redux/modules/card';
 import CardAdd from '../Card/CardAdd/CardAdd';
 import CardList from '../Card/CardList/CardList';
+import PaperAdd from './PaperAdd/PaperAdd';
 import PaperNav from './PaperNav/PaperNav';
 
 @connect(
@@ -76,6 +77,7 @@ export default class PaperList extends Component {
     return {
       focusNewCardPanel: () => (this.props.switchPanel(0)),
       focusCardListPanel: () => (this.props.switchPanel(1)),
+      focusPaperAddPanel: () => (this.props.switchPanel(2)),
     };
   }
 
@@ -108,10 +110,13 @@ export default class PaperList extends Component {
         </div>
         <div className="row">
           <div className="col-xs-12" >
+            <PaperAdd
+              focus={hotkey.activePanel === 2}
+              handleCreate={::this.handleCreate}
+            />
             <PaperNav
               papers={papers}
               currentPaperIndex={parseInt(currentPaperIndex, 10)}
-              handleCreate={::this.handleCreate}
               handleSelect={::this.handleSelect}
             />
         </div>

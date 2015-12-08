@@ -8,7 +8,6 @@ export default class PaperNav extends Component {
   static propTypes = {
     currentPaperIndex: PropTypes.number.isRequired,
     papers: PropTypes.array.isRequired,
-    handleCreate: PropTypes.func.isRequired,
     handleSelect: PropTypes.func.isRequired,
   }
 
@@ -17,7 +16,7 @@ export default class PaperNav extends Component {
   }
 
   render() {
-    const { currentPaperIndex, papers, /** handleCreate **/ } = this.props;
+    const { currentPaperIndex, papers } = this.props;
 
     return (
       <div className={styles.paperNav}>
