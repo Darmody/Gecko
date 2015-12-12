@@ -3,11 +3,10 @@ import { HotKeys } from 'react-hotkeys';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetch as fetchHotkey, switchPanel } from 'redux/modules/hotkey';
-import { fetch, create, select } from 'redux/modules/paper';
+import { fetch, create, select, shift } from 'redux/modules/paper';
 import { create as createCard, fetch as fetchCard, destroy } from 'redux/modules/card';
 import CardAdd from '../Card/CardAdd/CardAdd';
 import CardList from '../Card/CardList/CardList';
-import PaperAdd from './PaperAdd/PaperAdd';
 import PaperNav from './PaperNav/PaperNav';
 
 @connect(
@@ -26,6 +25,7 @@ import PaperNav from './PaperNav/PaperNav';
         fetchCard,
         fetchHotkey,
         select,
+        shift,
         switchPanel,
       },
       dispatch)
@@ -41,9 +41,16 @@ export default class PaperList extends Component {
     fetch: PropTypes.func.isRequired,
     fetchHotkey: PropTypes.func.isRequired,
     select: PropTypes.func.isRequired,
+    shift: PropTypes.func.isRequired,
     switchPanel: PropTypes.func.isRequired,
     createCard: PropTypes.func.isRequired,
     fetchCard: PropTypes.func.isRequired,
+  }
+
+  constructor(props) {
+    super(props);
+
+    this.state = { stopKeyHandler: false };
   }
 
   componentDidMount() {
@@ -51,8 +58,6 @@ export default class PaperList extends Component {
     this.props.fetchCard();
     this.props.fetchHotkey();
   }
-
-
   handleSelect(index) {
     this.props.select(index);
   }
@@ -73,11 +78,38 @@ export default class PaperList extends Component {
     );
   }
 
+  startupHotKeyHandlers() {
+    this.setState({ stopKeyHandler: false });
+  }
+
+  preventHotKeyHandlers() {
+    this.setState({ stopKeyHandler: true });
+  }
+
   hotkeyHandlers() {
+    const self = this;
+
     return {
-      focusNewCardPanel: () => (this.props.switchPanel(0)),
-      focusCardListPanel: () => (this.props.switchPanel(1)),
-      focusPaperAddPanel: () => (this.props.switchPanel(2)),
+      focusNewCardPanel: () => {
+        self.preventHotKeyHandlers();
+        self.props.switchPanel(0);
+      },
+      focusPaperAddPanel: () => {
+        self.preventHotKeyHandlers();
+        self.props.switchPanel(2);
+      },
+      focusCardListPanel: () => {
+        self.startupHotKeyHandlers();
+        self.props.switchPanel(1);
+      },
+      switchPaperLeft: () => {
+        if (self.state.stopKeyHandler) return;
+        self.props.shift(self.props.paper.currentPaperIndex, -1);
+      },
+      switchPaperRight: () => {
+        if (self.state.stopKeyHandler) return;
+        self.props.shift(self.props.paper.currentPaperIndex, +1);
+      }
     };
   }
 
@@ -88,12 +120,16 @@ export default class PaperList extends Component {
     const papers = paper.list;
     const cards = card[currentPaperIndex] || [];
 
+    const activeCardAddPanel = hotkey.activePanel === 0;
+    const activeCardListPanel = hotkey.activePanel === 1;
+    const activePaperAddPanel = hotkey.activePanel === 2;
+
     return (
       <HotKeys keyMap={hotkey.keyMap} handlers={::this.hotkeyHandlers()}>
         <div className="row">
           <div className="col-xs-12">
             <CardAdd
-              focus={hotkey.activePanel === 0}
+              focus={activeCardAddPanel}
               handleCreate={::this.handleCreateCard}
             />
           </div>
@@ -101,7 +137,7 @@ export default class PaperList extends Component {
         <div className="row">
           <div className="col-xs-12">
             <CardList
-              focus={hotkey.activePanel === 1}
+              focus={activeCardListPanel}
               cards={cards}
               destroy={::this.handleDestroyCard}
               {...this.state}
@@ -110,14 +146,12 @@ export default class PaperList extends Component {
         </div>
         <div className="row">
           <div className="col-xs-12" >
-            <PaperAdd
-              focus={hotkey.activePanel === 2}
-              handleCreate={::this.handleCreate}
-            />
             <PaperNav
               papers={papers}
+              focus={activePaperAddPanel}
               currentPaperIndex={parseInt(currentPaperIndex, 10)}
               handleSelect={::this.handleSelect}
+              handleCreate={::this.handleCreate}
             />
         </div>
         </div>

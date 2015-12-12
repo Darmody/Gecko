@@ -22,8 +22,8 @@ export default class PaperAdd extends Component {
         style={{ display }}
       >
         <InlineInput
-          placeholder="New Paper"
-          keepEditing
+          placeholder=" "
+          className={styles.paperAddInput}
           handleSubmit={::this.handleSubmit}
           focus={focus}
         />

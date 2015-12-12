@@ -1,6 +1,22 @@
+@import "~containers/App/Constants";
+
 .paperAdd {
-  bottom: 70px;
-  padding: 0px 10% 0px 10%;
+  bottom: 10px;
+  padding: 0px 30% 0px 30%;
   position: absolute;
-  width: 80%;
+  width: 40%;
+  z-index: 1;
+}
+
+.paperAddInput {
+  background: transparent;
+  background-color: $secondary-color;
+  color: #fff;
+  border: 2px solid $positive-color;
+  border-radius: 4px;
+  font-size: 16px;
+  height: 40px;
+  outline: none;
+  text-align: center;
+  width: 100%;
 }

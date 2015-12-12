@@ -12,6 +12,8 @@ const initialState = new Map({
     focusPaperAddPanel: ['ctrl+t'],
     forwardCardUp: 'k',
     forwardCardDown: 'j',
+    switchPaperLeft: 'h',
+    switchPaperRight: 'l',
   },
 });
 
