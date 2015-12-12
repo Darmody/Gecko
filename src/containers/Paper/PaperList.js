@@ -86,22 +86,22 @@ export default class PaperList extends Component {
     this.setState({ stopKeyHandler: true });
   }
 
+  handleSwitchPanel(index) {
+    if (index === 1) {
+      this.startupHotKeyHandlers();
+    } else {
+      this.preventHotKeyHandlers();
+    }
+    this.props.switchPanel(index);
+  }
+
   hotkeyHandlers() {
     const self = this;
 
     return {
-      focusNewCardPanel: () => {
-        self.preventHotKeyHandlers();
-        self.props.switchPanel(0);
-      },
-      focusPaperAddPanel: () => {
-        self.preventHotKeyHandlers();
-        self.props.switchPanel(2);
-      },
-      focusCardListPanel: () => {
-        self.startupHotKeyHandlers();
-        self.props.switchPanel(1);
-      },
+      focusNewCardPanel: () => (self.handleSwitchPanel(0)),
+      focusPaperAddPanel: () => (self.handleSwitchPanel(2)),
+      focusCardListPanel: () => (self.handleSwitchPanel(1)),
       switchPaperLeft: () => {
         if (self.state.stopKeyHandler) return;
         self.props.shift(self.props.paper.currentPaperIndex, -1);
@@ -114,7 +114,11 @@ export default class PaperList extends Component {
   }
 
   render() {
-    const { paper, card, hotkey } = this.props;
+    const {
+      paper,
+      card,
+      hotkey,
+    } = this.props;
 
     const currentPaperIndex = paper.currentPaperIndex;
     const papers = paper.list;
@@ -123,6 +127,8 @@ export default class PaperList extends Component {
     const activeCardAddPanel = hotkey.activePanel === 0;
     const activeCardListPanel = hotkey.activePanel === 1;
     const activePaperAddPanel = hotkey.activePanel === 2;
+
+    console.debug(hotkey.activePanel);
 
     return (
       <HotKeys keyMap={hotkey.keyMap} handlers={::this.hotkeyHandlers()}>
@@ -152,6 +158,8 @@ export default class PaperList extends Component {
               currentPaperIndex={parseInt(currentPaperIndex, 10)}
               handleSelect={::this.handleSelect}
               handleCreate={::this.handleCreate}
+              shift={this.props.shift}
+              switchPanel={::this.handleSwitchPanel}
             />
         </div>
         </div>

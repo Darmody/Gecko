@@ -11,6 +11,7 @@ export default class PaperNav extends Component {
     currentPaperIndex: PropTypes.number.isRequired,
     focus: PropTypes.bool,
     papers: PropTypes.array.isRequired,
+    switchPanel: PropTypes.func.isRequired,
     handleCreate: PropTypes.func.isRequired,
     handleSelect: PropTypes.func.isRequired,
   }
@@ -21,7 +22,8 @@ export default class PaperNav extends Component {
 
   handleCreatePaper(data) {
     this.props.handleCreate(data);
-    this.props.handleSelect(0);
+    this.props.handleSelect(this.props.papers.size);
+    this.props.switchPanel(1);
   }
 
   render() {
@@ -29,7 +31,6 @@ export default class PaperNav extends Component {
       currentPaperIndex,
       papers,
       focus,
-      handleCreate,
     } = this.props;
 
     const paperNavClasses = focus ? [styles.paperNav, styles.frostedPaperNav] : [styles.paperNav];
@@ -37,7 +38,7 @@ export default class PaperNav extends Component {
     return (
       <div>
         <PaperAdd
-          handleCreate={handleCreate}
+          handleCreate={::this.handleCreatePaper}
           focus={focus}
         />
         <div className={cn([...paperNavClasses])}>
