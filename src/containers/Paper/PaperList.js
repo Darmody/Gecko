@@ -3,7 +3,7 @@ import { HotKeys } from 'react-hotkeys';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetch as fetchHotkey, switchPanel } from 'redux/modules/hotkey';
-import { fetch, create, select } from 'redux/modules/paper';
+import { fetch, create, select, shift } from 'redux/modules/paper';
 import { create as createCard, fetch as fetchCard, destroy } from 'redux/modules/card';
 import CardAdd from '../Card/CardAdd/CardAdd';
 import CardList from '../Card/CardList/CardList';
@@ -25,6 +25,7 @@ import PaperNav from './PaperNav/PaperNav';
         fetchCard,
         fetchHotkey,
         select,
+        shift,
         switchPanel,
       },
       dispatch)
@@ -40,9 +41,16 @@ export default class PaperList extends Component {
     fetch: PropTypes.func.isRequired,
     fetchHotkey: PropTypes.func.isRequired,
     select: PropTypes.func.isRequired,
+    shift: PropTypes.func.isRequired,
     switchPanel: PropTypes.func.isRequired,
     createCard: PropTypes.func.isRequired,
     fetchCard: PropTypes.func.isRequired,
+  }
+
+  constructor(props) {
+    super(props);
+
+    this.state = { stopKeyHandler: false };
   }
 
   componentDidMount() {
@@ -50,8 +58,6 @@ export default class PaperList extends Component {
     this.props.fetchCard();
     this.props.fetchHotkey();
   }
-
-
   handleSelect(index) {
     this.props.select(index);
   }
@@ -72,26 +78,64 @@ export default class PaperList extends Component {
     );
   }
 
+  startupHotKeyHandlers() {
+    this.setState({ stopKeyHandler: false });
+  }
+
+  preventHotKeyHandlers() {
+    this.setState({ stopKeyHandler: true });
+  }
+
+  handleSwitchPanel(index) {
+    if (index === 1) {
+      this.startupHotKeyHandlers();
+    } else {
+      this.preventHotKeyHandlers();
+    }
+    this.props.switchPanel(index);
+  }
+
   hotkeyHandlers() {
+    const self = this;
+
     return {
-      focusNewCardPanel: () => (this.props.switchPanel(0)),
-      focusCardListPanel: () => (this.props.switchPanel(1)),
+      focusNewCardPanel: () => (self.handleSwitchPanel(0)),
+      focusPaperAddPanel: () => (self.handleSwitchPanel(2)),
+      focusCardListPanel: () => (self.handleSwitchPanel(1)),
+      switchPaperLeft: () => {
+        if (self.state.stopKeyHandler) return;
+        self.props.shift(self.props.paper.currentPaperIndex, -1);
+      },
+      switchPaperRight: () => {
+        if (self.state.stopKeyHandler) return;
+        self.props.shift(self.props.paper.currentPaperIndex, +1);
+      }
     };
   }
 
   render() {
-    const { paper, card, hotkey } = this.props;
+    const {
+      paper,
+      card,
+      hotkey,
+    } = this.props;
 
     const currentPaperIndex = paper.currentPaperIndex;
     const papers = paper.list;
     const cards = card[currentPaperIndex] || [];
+
+    const activeCardAddPanel = hotkey.activePanel === 0;
+    const activeCardListPanel = hotkey.activePanel === 1;
+    const activePaperAddPanel = hotkey.activePanel === 2;
+
+    console.debug(hotkey.activePanel);
 
     return (
       <HotKeys keyMap={hotkey.keyMap} handlers={::this.hotkeyHandlers()}>
         <div className="row">
           <div className="col-xs-12">
             <CardAdd
-              focus={hotkey.activePanel === 0}
+              focus={activeCardAddPanel}
               handleCreate={::this.handleCreateCard}
             />
           </div>
@@ -99,7 +143,7 @@ export default class PaperList extends Component {
         <div className="row">
           <div className="col-xs-12">
             <CardList
-              focus={hotkey.activePanel === 1}
+              focus={activeCardListPanel}
               cards={cards}
               destroy={::this.handleDestroyCard}
               {...this.state}
@@ -110,9 +154,12 @@ export default class PaperList extends Component {
           <div className="col-xs-12" >
             <PaperNav
               papers={papers}
+              focus={activePaperAddPanel}
               currentPaperIndex={parseInt(currentPaperIndex, 10)}
-              handleCreate={::this.handleCreate}
               handleSelect={::this.handleSelect}
+              handleCreate={::this.handleCreate}
+              shift={this.props.shift}
+              switchPanel={::this.handleSwitchPanel}
             />
         </div>
         </div>

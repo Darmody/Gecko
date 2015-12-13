@@ -7,12 +7,12 @@ export default function createStore(data) {
   if (__DEVELOPMENT__) {
     finalCreateStore = compose(
       applyMiddleware(createLogger()),
-      persistState(['hotkey', 'paper', 'card', ])
+      persistState(['paper', 'card', ])
     )(_createStore);
   } else {
     finalCreateStore = compose(
       applyMiddleware(createLogger()),
-      persistState(['hotkey', 'paper', 'card', ])
+      persistState(['paper', 'card', ])
     )(_createStore);
   }
 

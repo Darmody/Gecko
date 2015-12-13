@@ -37,9 +37,10 @@ export default class CardList extends Component {
 
     if (prevState.currentActiveCard !== this.state.currentActiveCard) {
       const { currentActiveCard } = this.state;
-      ReactDOM.findDOMNode(
+      const dom = ReactDOM.findDOMNode(
         this.refs[`card_${currentActiveCard}`]
-      ).scrollIntoViewIfNeeded();
+      );
+      if (dom) dom.scrollIntoViewIfNeeded();
     }
 
   }

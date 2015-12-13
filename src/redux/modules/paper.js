@@ -1,4 +1,6 @@
 import {List, Map, fromJS } from 'immutable';
+import max from 'lodash/math/max';
+import min from 'lodash/math/min';
 import Paper from '../records/paper';
 
 export const CREATE = 'Gecko/paper/CREATE';
@@ -11,7 +13,7 @@ const initialState = new Map({
   list: List.of(
     new Paper({ title: 'Gecko'}),
   ),
-  currentPaperIndex: '0',
+  currentPaperIndex: 0,
 });
 
 const revive = (state) => {
@@ -31,7 +33,10 @@ const reducer = (originalState, action) => {
     case CREATE:
       return state.updateIn(['list'], list => list.push(action.newRecord));
     case SELECT:
-      return state.set('currentPaperIndex', action.currentPaperIndex);
+      let index = action.currentPaperIndex;
+      index = min([index, state.get('list').length - 1]);
+      index = max([index, 0]);
+      return state.set('currentPaperIndex', index);
     default:
       return state;
   }
@@ -53,8 +58,12 @@ export function create(newRecord) {
 export function select(index) {
   return {
     type: SELECT,
-    currentPaperIndex: index,
+    currentPaperIndex: parseInt(index, 10),
   };
+}
+
+export function shift(currentIndex, direction) {
+  return select(parseInt(currentIndex, 10) + direction);
 }
 
 export default (state = initialState, action = {}) => (reducer(state, action).toJS());

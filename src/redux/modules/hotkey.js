@@ -9,8 +9,11 @@ const initialState = new Map({
     destroyCard: 'd d',
     focusNewCardPanel: 'ctrl+n',
     focusCardListPanel: ['esc', 'ctrl+l'],
+    focusPaperAddPanel: ['ctrl+t'],
     forwardCardUp: 'k',
     forwardCardDown: 'j',
+    switchPaperLeft: 'h',
+    switchPaperRight: 'l',
   },
 });
 

@@ -6,6 +6,10 @@
   position: fixed;
 }
 
+.frostedPaperNav {
+  -webkit-filter: blur(3px);
+}
+
 .paperNavTab {
   background-color: $secondary-color;
 
