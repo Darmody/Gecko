@@ -47,6 +47,7 @@
     "history": "^1.13.0",
     "hoist-non-react-statics": "^1.0.3",
     "immutable": "^3.7.5",
+    "less": "^2.5.3",
     "lru-memoize": "^1.0.0",
     "map-props": "^1.0.0",
     "material-ui": "^0.13.3",
